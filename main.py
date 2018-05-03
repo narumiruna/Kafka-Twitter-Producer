@@ -4,7 +4,8 @@ import os
 import twitter
 
 
-class TwitterCrawler(object):
+class TwitterHelper(object):
+
     def __init__(self, path):
         """
         Args:
@@ -24,7 +25,8 @@ class TwitterCrawler(object):
         res = []
         for status in statuses:
             if isinstance(status, twitter.models.Status):
-                res.append(json.dumps(status._json, indent=4, ensure_ascii=False))
+                res.append(
+                    json.dumps(status._json, indent=4, ensure_ascii=False))
 
         return res
 
@@ -34,13 +36,14 @@ class TwitterCrawler(object):
 
         for trend in trends:
             if isinstance(trend, twitter.models.Trend):
-                res.append(json.dumps(trend._json, indent=4, ensure_ascii=False))
+                res.append(
+                    json.dumps(trend._json, indent=4, ensure_ascii=False))
 
         return res
 
 
 def main():
-    tc = TwitterCrawler('config.json')
+    tc = TwitterHelper('config.json')
     statuses = tc.get_search(term='#Taiwan', lang='ja')
     for status in statuses:
         print(status)
